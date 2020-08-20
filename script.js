@@ -14,25 +14,28 @@ window.onload = setup;
 const episode = getOneEpisode();
 
 const bodyEl = document.querySelector("body");
+const anchorEl = document.createElement("a");
 const containerEl = document.createElement("div");
 const nameEl = document.createElement("p");
-// const seasonEl = document.createElement("p");
-// const numberEl = document.createElement("p");
 const imageMediumEl = document.createElement("img");
 const summaryEl = document.createElement("p");
 const episodeCode = document.createElement("p");
 
+anchorEl.href = episode.url;
+anchorEl.style.textDecoration = "none";
 nameEl.textContent = episode.name;
-// seasonEl.textContent = episode.season;
-// numberEl.textContent = episode.number;
 episodeCode.textContent = `S0${episode.season}E0${episode.number}`;
 imageMediumEl.src = episode.image.medium;
 summaryEl.innerHTML = episode.summary;
 
-bodyEl.appendChild(containerEl);
+bodyEl.appendChild(anchorEl);
+anchorEl.appendChild(containerEl);
 containerEl.appendChild(nameEl);
-// containerEl.appendChild(seasonEl);
-// containerEl.appendChild(numberEl);
 containerEl.appendChild(episodeCode);
 containerEl.appendChild(imageMediumEl);
 containerEl.appendChild(summaryEl);
+
+// footer
+const footerEl = document.createElement("footer");
+footerEl.innerHTML = "Data is from <a href=\"https://www.tvmaze.com\">TVMaze.com</a>";
+bodyEl.appendChild(footerEl);
