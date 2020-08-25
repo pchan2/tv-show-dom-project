@@ -38,12 +38,24 @@ containerEl.appendChild(summaryEl);
 */
 
 //access array using forEach https://www.youtube.com/watch?v=kTYRFuJv-gA
-// -- GET ALL EPISODES --
 const episodes = getAllEpisodes();
 const bodyEl = document.querySelector("body");
 const outerContainerEl = document.createElement("div");
+
+// search input
+const searchEl = document.createElement("input");
+bodyEl.appendChild(searchEl);
+searchEl.placeholder = "Search episodes";
+searchEl.style.padding = ".8rem";
+searchEl.style.margin = "1rem";
+searchEl.style.border = "solid 2px grey";
+searchEl.style.borderRadius = "10px";
+searchEl.style.width = "17rem";
+
+// container for all episode containers
 bodyEl.appendChild(outerContainerEl);
 
+// -- GET ALL EPISODES --
 episodes.forEach((episode) => {
   const anchorEl = document.createElement("a");
   const containerEl = document.createElement("div");
@@ -67,7 +79,7 @@ episodes.forEach((episode) => {
   containerEl.appendChild(summaryEl);
 
   containerEl.style.border = "solid 1px grey";
-  containerEl.style.borderRadius = "5%";
+  containerEl.style.borderRadius = "10px";
   containerEl.style.margin = "1rem";
   containerEl.style.padding = "1rem";
   containerEl.style.paddingTop = "0";
@@ -76,7 +88,7 @@ episodes.forEach((episode) => {
   containerEl.style.fontSize = ".8rem";
 
   nameEl.style.border = "dotted 3px white";
-  nameEl.style.borderRadius = "5%";
+  nameEl.style.borderRadius = "10px";
   nameEl.style.padding = "1rem";
   nameEl.style.fontSize = "1.2rem";
   nameEl.style.textAlign = "center";
@@ -93,5 +105,3 @@ outerContainerEl.style.width ="100%";
 const footerEl = document.createElement("footer");
 footerEl.innerHTML = "Data is from <a href=\"https://www.tvmaze.com\">TVMaze.com</a>";
 bodyEl.appendChild(footerEl);
-
-// search input
