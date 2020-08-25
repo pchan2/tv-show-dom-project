@@ -37,10 +37,12 @@ containerEl.appendChild(imageMediumEl);
 containerEl.appendChild(summaryEl);
 */
 
-//https://www.youtube.com/watch?v=kTYRFuJv-gA
-
+//access array using forEach https://www.youtube.com/watch?v=kTYRFuJv-gA
+// -- GET ALL EPISODES --
 const episodes = getAllEpisodes();
 const bodyEl = document.querySelector("body");
+const outerContainerEl = document.createElement("div");
+bodyEl.appendChild(outerContainerEl);
 
 episodes.forEach((episode) => {
   const anchorEl = document.createElement("a");
@@ -57,15 +59,39 @@ episodes.forEach((episode) => {
   imageMediumEl.src = episode.image.medium;
   summaryEl.innerHTML = episode.summary;
 
-  bodyEl.appendChild(anchorEl);
-  anchorEl.appendChild(containerEl);
-  containerEl.appendChild(nameEl);
+  outerContainerEl.appendChild(containerEl);
+  containerEl.appendChild(anchorEl);
+  anchorEl.appendChild(nameEl);
   containerEl.appendChild(episodeCode);
   containerEl.appendChild(imageMediumEl);
   containerEl.appendChild(summaryEl);
+
+  containerEl.style.border = "solid 1px grey";
+  containerEl.style.borderRadius = "5%";
+  containerEl.style.margin = "1rem";
+  containerEl.style.padding = "1rem";
+  containerEl.style.paddingTop = "0";
+  containerEl.style.paddingBottom = "0";
+  containerEl.style.width = "16rem";
+  containerEl.style.fontSize = ".8rem";
+
+  nameEl.style.border = "dotted 3px white";
+  nameEl.style.borderRadius = "5%";
+  nameEl.style.padding = "1rem";
+  nameEl.style.fontSize = "1.2rem";
+  nameEl.style.textAlign = "center";
+  nameEl.style.backgroundColor = "#eceeee";
 });
+
+bodyEl.style.width = "100vw"; // BUG: the elements go off screen
+bodyEl.style.fontFamily = "Arial";
+bodyEl.style.fontSize = ".8rem";
+outerContainerEl.style.display = "flex";
+outerContainerEl.style.width ="100%";
 
 // footer
 const footerEl = document.createElement("footer");
 footerEl.innerHTML = "Data is from <a href=\"https://www.tvmaze.com\">TVMaze.com</a>";
 bodyEl.appendChild(footerEl);
+
+// search input
