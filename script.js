@@ -40,9 +40,9 @@ containerEl.appendChild(summaryEl);
 //access array using forEach https://www.youtube.com/watch?v=kTYRFuJv-gA
 const episodes = getAllEpisodes();
 const bodyEl = document.querySelector("body");
-const outerContainerEl = document.createElement("div");
+const allEpisodesContainerEl = document.createElement("div");
 
-// search input
+// -- SEARCH INPUT --
 const searchEl = document.createElement("input");
 bodyEl.appendChild(searchEl);
 searchEl.type = "text";
@@ -54,12 +54,12 @@ searchEl.style.borderRadius = "10px";
 searchEl.style.width = "17rem";
 
 // container for all episode containers
-bodyEl.appendChild(outerContainerEl);
+bodyEl.appendChild(allEpisodesContainerEl);
 
 // -- GET ALL EPISODES --
 episodes.forEach((episode) => {
   const anchorEl = document.createElement("a");
-  const containerEl = document.createElement("div");
+  const episodeContainerEl = document.createElement("div");
   const nameEl = document.createElement("p");
   const imageMediumEl = document.createElement("img");
   const summaryEl = document.createElement("p");
@@ -72,21 +72,21 @@ episodes.forEach((episode) => {
   imageMediumEl.src = episode.image.medium;
   summaryEl.innerHTML = episode.summary;
 
-  outerContainerEl.appendChild(containerEl);
-  containerEl.appendChild(anchorEl);
+  allEpisodesContainerEl.appendChild(episodeContainerEl);
+  episodeContainerEl.appendChild(anchorEl);
   anchorEl.appendChild(nameEl);
-  containerEl.appendChild(episodeCodeEl);
-  containerEl.appendChild(imageMediumEl);
-  containerEl.appendChild(summaryEl);
+  episodeContainerEl.appendChild(episodeCodeEl);
+  episodeContainerEl.appendChild(imageMediumEl);
+  episodeContainerEl.appendChild(summaryEl);
 
-  containerEl.style.border = "solid 1px grey";
-  containerEl.style.borderRadius = "10px";
-  containerEl.style.margin = "1rem";
-  containerEl.style.padding = "1rem";
-  containerEl.style.paddingTop = "0";
-  containerEl.style.paddingBottom = "0";
-  containerEl.style.width = "16rem";
-  containerEl.style.fontSize = ".8rem";
+  episodeContainerEl.style.border = "solid 1px grey";
+  episodeContainerEl.style.borderRadius = "10px";
+  episodeContainerEl.style.margin = "1rem";
+  episodeContainerEl.style.padding = "1rem";
+  episodeContainerEl.style.paddingTop = "0";
+  episodeContainerEl.style.paddingBottom = "0";
+  episodeContainerEl.style.width = "16rem";
+  episodeContainerEl.style.fontSize = ".8rem";
 
   nameEl.style.border = "dotted 5px #eceeee";
   nameEl.style.borderRadius = "10px";
@@ -102,11 +102,14 @@ bodyEl.style.width = "100vw"; // BUG: the elements go off screen
 bodyEl.style.fontFamily = "Arial";
 bodyEl.style.fontSize = ".8rem";
 bodyEl.style.background = "#eceeee";
-outerContainerEl.style.display = "flex";
-outerContainerEl.style.width ="100%";
+allEpisodesContainerEl.style.display = "flex";
+allEpisodesContainerEl.style.width ="100%";
 
-// footer
+// -- FOOTER --
 const footerEl = document.createElement("footer");
 footerEl.innerHTML = "Data is from <a href=\"https://www.tvmaze.com\">TVMaze.com</a>";
 bodyEl.appendChild(footerEl);
+footerEl.style.textAlign = "center";
 
+// -- LIVE SEARCH with KEYUP -- custom search filter 8:11 https://www.youtube.com/watch?v=3NG8zy0ywIk
+// -- LIVE SEARCH with FETCH -- Quick Autocomplete App With JS & JSON https://www.youtube.com/watch?v=1iysNUrI3lw
