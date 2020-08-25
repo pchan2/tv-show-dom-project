@@ -45,7 +45,8 @@ const outerContainerEl = document.createElement("div");
 // search input
 const searchEl = document.createElement("input");
 bodyEl.appendChild(searchEl);
-searchEl.placeholder = "Search episodes";
+searchEl.type = "text";
+searchEl.placeholder = "Your search term...";
 searchEl.style.padding = ".8rem";
 searchEl.style.margin = "1rem";
 searchEl.style.border = "solid 2px grey";
@@ -62,19 +63,19 @@ episodes.forEach((episode) => {
   const nameEl = document.createElement("p");
   const imageMediumEl = document.createElement("img");
   const summaryEl = document.createElement("p");
-  const episodeCode = document.createElement("p");
+  const episodeCodeEl = document.createElement("p");
 
   anchorEl.href = episode.url;
   anchorEl.style.textDecoration = "none";
   nameEl.textContent = episode.name;
-  episodeCode.textContent = `S0${episode.season}E0${episode.number}`;
+  episodeCodeEl.textContent = `S0${episode.season}E0${episode.number}`;
   imageMediumEl.src = episode.image.medium;
   summaryEl.innerHTML = episode.summary;
 
   outerContainerEl.appendChild(containerEl);
   containerEl.appendChild(anchorEl);
   anchorEl.appendChild(nameEl);
-  containerEl.appendChild(episodeCode);
+  containerEl.appendChild(episodeCodeEl);
   containerEl.appendChild(imageMediumEl);
   containerEl.appendChild(summaryEl);
 
@@ -87,17 +88,20 @@ episodes.forEach((episode) => {
   containerEl.style.width = "16rem";
   containerEl.style.fontSize = ".8rem";
 
-  nameEl.style.border = "dotted 3px white";
+  nameEl.style.border = "dotted 5px #eceeee";
   nameEl.style.borderRadius = "10px";
   nameEl.style.padding = "1rem";
   nameEl.style.fontSize = "1.2rem";
   nameEl.style.textAlign = "center";
-  nameEl.style.backgroundColor = "#eceeee";
+  nameEl.style.backgroundColor = "white";
+
+  episodeCodeEl.style.fontWeight = "bold";
 });
 
 bodyEl.style.width = "100vw"; // BUG: the elements go off screen
 bodyEl.style.fontFamily = "Arial";
 bodyEl.style.fontSize = ".8rem";
+bodyEl.style.background = "#eceeee";
 outerContainerEl.style.display = "flex";
 outerContainerEl.style.width ="100%";
 
@@ -105,3 +109,4 @@ outerContainerEl.style.width ="100%";
 const footerEl = document.createElement("footer");
 footerEl.innerHTML = "Data is from <a href=\"https://www.tvmaze.com\">TVMaze.com</a>";
 bodyEl.appendChild(footerEl);
+
