@@ -88,7 +88,7 @@ episodes.forEach((episode) => {
   episodeContainerEl.style.width = "16rem";
   episodeContainerEl.style.fontSize = ".8rem";
 
-  nameEl.style.border = "dotted 5px #eceeee";
+  nameEl.style.border = "dotted 2px #eceeee";
   nameEl.style.borderRadius = "10px";
   nameEl.style.padding = "1rem";
   nameEl.style.fontSize = "1.2rem";
@@ -98,12 +98,10 @@ episodes.forEach((episode) => {
   nameEl.onmouseover = function() {
     this.style.backgroundColor = "#eceeee";
     this.style.border = "dotted 2px grey";
-    this.style.fontSize = "1.3rem";
   }
   nameEl.onmouseout = function() {
     this.style.backgroundColor = "white";
-    this.style.border = "dotted 5px #eceeee";
-    this.style.fontSize = "1.2rem";
+    this.style.border = "dotted 2px #eceeee";
   }
 
   episodeCodeEl.style.fontWeight = "bold";
