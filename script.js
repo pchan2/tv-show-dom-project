@@ -105,6 +105,17 @@ episodes.forEach((episode) => {
   }
 
   episodeCodeEl.style.fontWeight = "bold";
+
+  searchEl.addEventListener("keyup", function(e) {
+    const term = e.target.value.toLowerCase();
+    episodes.filter(function(episode) {
+      if(episode.name.toLowerCase().indexOf(term) !== -1) {
+        nameEl.style.display = "block";
+      } else {
+        nameEl.style.display = "none";
+      }
+    })
+  })
 });
 
 bodyEl.style.width = "100vw"; // BUG: the elements go off screen
@@ -120,5 +131,6 @@ footerEl.innerHTML = "Data is from <a href=\"https://www.tvmaze.com\">TVMaze.com
 bodyEl.appendChild(footerEl);
 footerEl.style.textAlign = "center";
 
-// -- LIVE SEARCH with KEYUP -- custom search filter 8:11 https://www.youtube.com/watch?v=3NG8zy0ywIk
-// -- LIVE SEARCH with FETCH -- Quick Autocomplete App With JS & JSON https://www.youtube.com/watch?v=1iysNUrI3lw
+// -- LIVE SEARCH with "keyup" -- custom search filter 8:11 https://www.youtube.com/watch?v=3NG8zy0ywIk
+// -- LIVE SEARCH with "fetch" -- Quick Autocomplete App With JS & JSON https://www.youtube.com/watch?v=1iysNUrI3lw
+// -- LIVE SEARCH with "keyup" + "filter" -- https://www.youtube.com/watch?v=DzXmAKdEYIs
