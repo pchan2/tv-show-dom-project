@@ -94,6 +94,17 @@ episodes.forEach((episode) => {
   nameEl.style.fontSize = "1.2rem";
   nameEl.style.textAlign = "center";
   nameEl.style.backgroundColor = "white";
+  nameEl.style.transition = "1s";
+  nameEl.onmouseover = function() {
+    this.style.backgroundColor = "#eceeee";
+    this.style.border = "dotted 2px grey";
+    this.style.fontSize = "1.3rem";
+  }
+  nameEl.onmouseout = function() {
+    this.style.backgroundColor = "white";
+    this.style.border = "dotted 5px #eceeee";
+    this.style.fontSize = "1.2rem";
+  }
 
   episodeCodeEl.style.fontWeight = "bold";
 });
