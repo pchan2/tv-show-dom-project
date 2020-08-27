@@ -64,10 +64,9 @@ bodyEl.appendChild(footerEl);
 // -- LIVE SEARCH with "keyup" -- custom search filter 8:11 https://www.youtube.com/watch?v=3NG8zy0ywIk
 // -- LIVE SEARCH with "fetch" -- Quick Autocomplete App With JS & JSON https://www.youtube.com/watch?v=1iysNUrI3lw
 // -- LIVE SEARCH with "keyup" + "filter" -- https://www.youtube.com/watch?v=DzXmAKdEYIs
-const episodeList = searchEl.addEventListener("keyup", function(e) {
+const filteredEpisodeList = searchEl.addEventListener("keyup", function(e) {
   const term = e.target.value.toLowerCase();
   episodes.filter(function(episode) {
-    console.log(episode);
     if(episode.toLowerCase().includes(term) ||
     episode.toLowerCase().includes(term)) {
       episode.style.display = "block";
@@ -76,6 +75,8 @@ const episodeList = searchEl.addEventListener("keyup", function(e) {
     }
   })
 })
+
+makePageForEpisodes(filteredEpisodeList);
 
 /* -- GET ONE EPISODE --
 const episode = getOneEpisode();
