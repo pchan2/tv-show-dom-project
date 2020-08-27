@@ -43,10 +43,8 @@ const bodyEl = document.querySelector("body");
 const allEpisodesContainerEl = document.createElement("div");
 
 // -- SEARCH INPUT --
-const searchEl = document.createElement("input");
+const searchEl = document.querySelector("input");
 bodyEl.appendChild(searchEl);
-searchEl.type = "text";
-searchEl.placeholder = "Your search term...";
 searchEl.style.padding = ".8rem";
 searchEl.style.margin = "1rem";
 searchEl.style.border = "solid 2px grey";
@@ -105,7 +103,6 @@ episodes.forEach((episode) => {
   }
 
   episodeCodeEl.style.fontWeight = "bold";
-  
 });
 
 bodyEl.style.width = "100vw"; // BUG: the elements go off screen
