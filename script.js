@@ -105,21 +105,8 @@ episodes.forEach((episode) => {
   }
 
   episodeCodeEl.style.fontWeight = "bold";
-
   
 });
-
-searchEl.addEventListener("keyup", function(e) {
-  const term = e.target.value.toLowerCase();
-  episodes.forEach(function(episode) {
-    if(episode.name.toLowerCase().includes(term) ||
-    episode.summary.toLowerCase().includes(term)) {
-      episodeContainerEl.style.display = "block";
-    } else {
-      episodeContainerEl.style.display = "none";
-    }
-  })
-})
 
 bodyEl.style.width = "100vw"; // BUG: the elements go off screen
 bodyEl.style.fontFamily = "Arial";
@@ -137,3 +124,14 @@ footerEl.style.textAlign = "center";
 // -- LIVE SEARCH with "keyup" -- custom search filter 8:11 https://www.youtube.com/watch?v=3NG8zy0ywIk
 // -- LIVE SEARCH with "fetch" -- Quick Autocomplete App With JS & JSON https://www.youtube.com/watch?v=1iysNUrI3lw
 // -- LIVE SEARCH with "keyup" + "filter" -- https://www.youtube.com/watch?v=DzXmAKdEYIs
+searchEl.addEventListener("keyup", function(e) {
+  const term = e.target.value.toLowerCase();
+  episodes.forEach(function(episode) {
+    if(episode.name.toLowerCase().includes(term) ||
+    episode.summary.toLowerCase().includes(term)) {
+      episodeContainerEl.style.display = "block";
+    } else {
+      episodeContainerEl.style.display = "none";
+    }
+  })
+})
