@@ -1,5 +1,5 @@
 //You can edit ALL of the code here
-/*function setup() {
+function setup() {
   const allEpisodes = getAllEpisodes();
   makePageForEpisodes(allEpisodes);
 }
@@ -9,7 +9,7 @@ function makePageForEpisodes(episodeList) {
   rootElem.textContent = `Got ${episodeList.length} episode(s)`;
 }
 
-window.onload = setup;*/
+window.onload = setup;
 
 /* -- GET ONE EPISODE --
 const episode = getOneEpisode();
@@ -106,17 +106,20 @@ episodes.forEach((episode) => {
 
   episodeCodeEl.style.fontWeight = "bold";
 
-  searchEl.addEventListener("keyup", function(e) {
-    const term = e.target.value.toLowerCase();
-    episodes.filter(function(episode) {
-      if(episode.name.toLowerCase().indexOf(term) !== -1) {
-        nameEl.style.display = "block";
-      } else {
-        nameEl.style.display = "none";
-      }
-    })
-  })
+  
 });
+
+searchEl.addEventListener("keyup", function(e) {
+  const term = e.target.value.toLowerCase();
+  episodes.forEach(function(episode) {
+    if(episode.name.toLowerCase().includes(term) ||
+    episode.summary.toLowerCase().includes(term)) {
+      episodeContainerEl.style.display = "block";
+    } else {
+      episodeContainerEl.style.display = "none";
+    }
+  })
+})
 
 bodyEl.style.width = "100vw"; // BUG: the elements go off screen
 bodyEl.style.fontFamily = "Arial";
