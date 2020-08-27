@@ -47,6 +47,11 @@ body {
   transition: 1s;
 }
 
+.episode-name:hover {
+  background: #eceeee;
+  border: dotted 2px grey;
+}
+
 .episode-code {
   font-weight: bold;
 }
