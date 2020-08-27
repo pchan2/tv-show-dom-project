@@ -101,8 +101,9 @@ bodyEl.appendChild(footerEl);
 searchEl.addEventListener("keyup", function(e) {
   const term = e.target.value.toLowerCase();
   episodes.forEach(function(episode) {
-    if(episode.name.toLowerCase().includes(term) ||
-    episode.summary.toLowerCase().includes(term)) {
+    console.log(episode);
+    if(nameEl.toLowerCase().includes(term) ||
+    summaryEL.toLowerCase().includes(term)) {
       episode.style.display = "block";
     } else {
       episode.style.display = "none";
