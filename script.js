@@ -8,7 +8,7 @@ function makePageForEpisodes(episodeList) {
   const rootElem = document.getElementById("root");
   rootElem.textContent = `Got ${episodeList.length} episode(s)`;
 
-  // -- GET ALL EPISODES --
+  // -- GET ALL EPISODES -- access array using forEach https://www.youtube.com/watch?v=kTYRFuJv-gA
   episodes.forEach((episode) => {
     // -- CREATE ELEMENTS --
     const anchorEl = document.createElement("a");
@@ -44,7 +44,6 @@ function makePageForEpisodes(episodeList) {
 
 window.onload = setup;
 
-//access array using forEach https://www.youtube.com/watch?v=kTYRFuJv-gA
 const episodes = getAllEpisodes();
 const bodyEl = document.querySelector("body");
 const allEpisodesContainerEl = document.createElement("div");
@@ -58,36 +57,36 @@ bodyEl.appendChild(allEpisodesContainerEl);
 
 // -- FOOTER --
 const footerEl = document.querySelector("footer");
-footerEl.innerHTML = "Data is from <a href=\"https://www.tvmaze.com\">TVMaze.com</a>";
 bodyEl.appendChild(footerEl);
 
 // -- LIVE SEARCH with "keyup" -- custom search filter 8:11 https://www.youtube.com/watch?v=3NG8zy0ywIk
 // -- LIVE SEARCH with "fetch" -- Quick Autocomplete App With JS & JSON https://www.youtube.com/watch?v=1iysNUrI3lw
 // -- LIVE SEARCH with "keyup" + "filter" -- https://www.youtube.com/watch?v=DzXmAKdEYIs
-// const filteredEpisodeList = searchEl.addEventListener("keyup", function(e) {
-//   const term = e.target.value.toLowerCase();
-//   episodes.filter(function(episode) {
-//     if(episode.toLowerCase().includes(term) ||
-//     episode.toLowerCase().includes(term)) {
-//       makePageForEpisodes(filteredEpisodeList);
-//     }
-//   })
-// })
+/*const filteredEpisodeList = searchEl.addEventListener("keyup", function(e) {
+  const term = e.target.value.toLowerCase();
+  episodes.filter(function(episode) {
+    if(episode.toLowerCase().includes(term) ||
+    episode.toLowerCase().includes(term)) {
+      makePageForEpisodes(filteredEpisodeList);
+    }
+  })
+})*/
 
 searchEl.addEventListener("keyup", function(e) {
 
   let episodes = [];
   let searchValue = e.target.value.toLowerCase();
   const allEpisodes = getAllEpisodes();
+  allEpisodesContainerEl.innerHTML = "";
 
   if(searchValue === null) {
-    return episodes.push(allEpisodes);
+    episodes = allEpisodes;
   } else {
-    episodes.push(allEpisodes.filter(episode => (
+    episodes = allEpisodes.filter(episode => (
       episode.name.toLowerCase().includes(searchValue) ||
       episode.summary.toLowerCase().includes(searchValue)
       )
-    ));
+    );
   }
 
   makePageForEpisodes(episodes);
