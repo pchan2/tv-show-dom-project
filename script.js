@@ -7,6 +7,7 @@ function setup() {
 function makePageForEpisodes(episodeList) {
   const rootElem = document.getElementById("root");
   rootElem.textContent = `Got ${episodeList.length} episode(s)`;
+  allEpisodesContainerEl.innerHTML = "";
 
   // -- GET ALL EPISODES -- access array using forEach https://www.youtube.com/watch?v=kTYRFuJv-gA
   episodes.forEach((episode) => {
@@ -75,7 +76,6 @@ searchEl.addEventListener("keyup", function(e) {
   if(searchValue === null) {
     episodes = allEpisodes;
   } else {
-    allEpisodesContainerEl.innerHTML = "";
     episodes = allEpisodes.filter(episode => (
       episode.name.toLowerCase().includes(searchValue) ||
       episode.summary.toLowerCase().includes(searchValue)
