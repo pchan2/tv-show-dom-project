@@ -1,3 +1,61 @@
 #root {
   color: red;
 }
+
+body {
+  width: 100vw; /* BUG - episodes go off screen */
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: .8rem;
+  background: #eceeee;
+}
+
+#live-search {
+  padding:.8rem;
+  margin: 1rem;
+  border: solid 2px grey;
+  border-radius: 10px;
+  width: 17rem;
+}
+
+.all-episodes-container {
+  display: flex;
+  width: 100%;
+}
+
+.anchor-name {
+  text-decoration: none;
+}
+
+.episode-container {
+  border: solid 1px grey;
+  border-radius: 10px;
+  margin: 1rem;
+  padding: 1rem;
+  padding-top: 0;
+  padding-bottom: 0;
+  width: 16rem;
+  font-size: .8rem;
+}
+
+.episode-name {
+  border: dotted 2px #eceeee;
+  border-radius: 10px;
+  padding: 1rem;
+  font-size: 1.2rem;
+  text-align: center;
+  background: white;
+  transition: 1s;
+}
+
+.episode-name:hover {
+  background: #eceeee;
+  border: dotted 2px grey;
+}
+
+.episode-code {
+  font-weight: bold;
+}
+
+footer {
+  text-align: center;
+}
