@@ -28,9 +28,14 @@ function makePageForEpisodes(episodeList) {
     // -- GIVE ELEMENTS VALUE --
     anchorEl.href = episode.url;
     nameEl.textContent = episode.name;
-    episodeCodeEl.textContent = `S0${episode.season}E0${episode.number}`;
     imageMediumEl.src = episode.image.medium;
     summaryEl.innerHTML = episode.summary;
+
+    if(episode.number >= 10) {
+      episodeCodeEl.textContent = `S0${episode.season}E${episode.number}`;
+    } else {
+      episodeCodeEl.textContent = `S0${episode.season}E0${episode.number}`;
+    }
 
     // -- APPEND ELEMENTS --
     allEpisodesContainerEl.appendChild(episodeContainerEl);
