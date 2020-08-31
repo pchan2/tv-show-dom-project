@@ -3,7 +3,7 @@
 }
 
 body {
-  width: 100vw; /* BUG - episodes go off screen */
+  width: 100vw;
   font-family: Arial, Helvetica, sans-serif;
   font-size: .8rem;
   background: #eceeee;
@@ -19,7 +19,8 @@ body {
 
 .all-episodes-container {
   display: flex;
-  width: 100%;
+  flex-wrap: wrap;  /* this fixed the BUG - episodes go off screen */
+  width: 100vw;
 }
 
 .anchor-name {
