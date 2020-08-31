@@ -4,13 +4,13 @@ function setup() {
   makePageForEpisodes(allEpisodes);
 }
 
-function makePageForEpisodes(episodeList) {
+function makePageForEpisodes(episodeList, numberOfEpisodes) {
   const rootElem = document.getElementById("root");
-  rootElem.textContent = `Got ${episodeList.length} episode(s)`;
+  rootElem.textContent = `Got ${episodeList.length} / ${numberOfEpisodes} episode(s)`;
   allEpisodesContainerEl.innerHTML = "";
 
   // -- GET ALL EPISODES -- access array using forEach https://www.youtube.com/watch?v=kTYRFuJv-gA
-  episodes.forEach((episode) => {
+  episodeList.forEach((episode) => {
     // -- CREATE ELEMENTS --
     const anchorEl = document.createElement("a");
     const episodeContainerEl = document.createElement("div");
@@ -32,7 +32,7 @@ function makePageForEpisodes(episodeList) {
     imageMediumEl.src = episode.image.medium;
     summaryEl.innerHTML = episode.summary;
 
-    if(episode.number >= 10) {
+    if (episode.number >= 10) {
       episodeCodeEl.textContent = `S0${episode.season}E${episode.number}`;
     } else {
       episodeCodeEl.textContent = `S0${episode.season}E0${episode.number}`;
@@ -67,23 +67,24 @@ bodyEl.appendChild(footerEl);
 
 // -- LIVE SEARCH RESOURCES -- see README.md file
 
-searchEl.addEventListener("keyup", function(e) {
-
+searchEl.addEventListener("keyup", function (e) {
+  console.log(getAllEpisodes());
   let episodes = [];
   let searchValue = e.target.value.toLowerCase();
   const allEpisodes = getAllEpisodes();
-
-  if(searchValue === null) {
-    episodes = allEpisodes;
-  } else {
-    episodes = allEpisodes.filter(episode => (
+  const numberOfEpisodes = allEpisodes.length;
+  console.log(searchValue);
+  // if(searchValue === null) {
+  //   episodes = allEpisodes;
+  // } else {
+  episodes = allEpisodes.filter(
+    (episode) =>
       episode.name.toLowerCase().includes(searchValue) ||
       episode.summary.toLowerCase().includes(searchValue)
-      )
-    );
-  }
-
-  makePageForEpisodes(episodes);
+  );
+  // }
+  // console.log(episodes);
+  makePageForEpisodes(episodes, numberOfEpisodes);
 });
 
 /* -- GET ONE EPISODE --
