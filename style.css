@@ -9,6 +9,14 @@ body {
   background: #eceeee;
 }
 
+#select-box {
+  padding:.8rem;
+  margin: 1rem;
+  border: solid 2px grey;
+  border-radius: 10px;
+  width: 17rem;
+}
+
 #live-search {
   padding:.8rem;
   margin: 1rem;

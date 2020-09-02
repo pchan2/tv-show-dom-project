@@ -1,7 +1,8 @@
 //You can edit ALL of the code here
 function setup() {
   const allEpisodes = getAllEpisodes();
-  makePageForEpisodes(allEpisodes);
+  const numberOfEpisodes = allEpisodes.length;
+  makePageForEpisodes(allEpisodes, numberOfEpisodes);
 }
 
 function makePageForEpisodes(episodeList, numberOfEpisodes) {
@@ -68,12 +69,12 @@ bodyEl.appendChild(footerEl);
 // -- LIVE SEARCH RESOURCES -- see README.md file
 
 searchEl.addEventListener("keyup", function (e) {
-  console.log(getAllEpisodes());
+  //console.log(getAllEpisodes());
   let episodes = [];
   let searchValue = e.target.value.toLowerCase();
   const allEpisodes = getAllEpisodes();
   const numberOfEpisodes = allEpisodes.length;
-  console.log(searchValue);
+  //console.log(searchValue);
   // if(searchValue === null) {
   //   episodes = allEpisodes;
   // } else {
@@ -85,6 +86,16 @@ searchEl.addEventListener("keyup", function (e) {
   // }
   // console.log(episodes);
   makePageForEpisodes(episodes, numberOfEpisodes);
+});
+
+// -- SELECT-BOX -- https://www.youtube.com/watch?v=I5vmeL0zYj4
+const selectEl = document.getElementById("select-box");
+const allEpisodes = getAllEpisodes();
+allEpisodes.forEach(episode => {
+  const optionEl1 = document.createElement("option");
+  selectEl.appendChild(optionEl1);
+  optionEl1.textContent = ` - ${episode.name}`;
+  
 });
 
 /* -- GET ONE EPISODE --
