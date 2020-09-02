@@ -1,7 +1,8 @@
+const allEpisodes = getAllEpisodes();
+
 //You can edit ALL of the code here
 function setup() {
-  const allEpisodes = getAllEpisodes();
-  const numberOfEpisodes = allEpisodes.length;
+    const numberOfEpisodes = allEpisodes.length;
   makePageForEpisodes(allEpisodes, numberOfEpisodes);
 }
 
@@ -51,7 +52,6 @@ function makePageForEpisodes(episodeList, numberOfEpisodes) {
 
 window.onload = setup;
 
-const episodes = getAllEpisodes();
 const bodyEl = document.querySelector("body");
 const allEpisodesContainerEl = document.createElement("div");
 
@@ -68,38 +68,43 @@ bodyEl.appendChild(footerEl);
 
 // -- LIVE SEARCH RESOURCES -- see README.md file
 
-searchEl.addEventListener("keyup", function (e) {
-  //console.log(getAllEpisodes());
+function searchAndDisplay(searchValue, allEpisodes) {
   let episodes = [];
-  let searchValue = e.target.value.toLowerCase();
-  const allEpisodes = getAllEpisodes();
   const numberOfEpisodes = allEpisodes.length;
-  //console.log(searchValue);
-  // if(searchValue === null) {
-  //   episodes = allEpisodes;
-  // } else {
+
   episodes = allEpisodes.filter(
     (episode) =>
       episode.name.toLowerCase().includes(searchValue) ||
       episode.summary.toLowerCase().includes(searchValue)
   );
-  // }
-  // console.log(episodes);
   makePageForEpisodes(episodes, numberOfEpisodes);
+}
+
+searchEl.addEventListener("keyup", function (e) {
+  let searchValue = e.target.value.toLowerCase();
+
+  searchAndDisplay(searchValue, allEpisodes);
 });
 
 // -- SELECT-BOX -- https://www.youtube.com/watch?v=I5vmeL0zYj4
 const selectEl = document.getElementById("select-box");
-const allEpisodes = getAllEpisodes();
+
+// add function to reset all pge episodes 
 
 function pad2(number) {
-   return (number < 10 ? '0' : '') + number
+  return (number < 10 ? "0" : "") + number;
 }
 
-allEpisodes.forEach(episode => {
+allEpisodes.forEach((episode) => {
   const optionEl1 = document.createElement("option");
+  optionEl1.value = JSON.stringify(episode);
+  optionEl1.textContent = `S${pad2(episode.season)}E${pad2(episode.number)} - ${episode.name }`;
   selectEl.appendChild(optionEl1);
-  optionEl1.textContent = `S${pad2(episode.season)}E${pad2(episode.number)} - ${episode.name}`;
+});
+
+selectEl.addEventListener("change", (e) => {
+  const episode =JSON.parse(e.target.value);
+  makePageForEpisodes([episode], allEpisodes.length);
 });
 
 /* -- GET ONE EPISODE --
