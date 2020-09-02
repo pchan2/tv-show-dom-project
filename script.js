@@ -91,11 +91,15 @@ searchEl.addEventListener("keyup", function (e) {
 // -- SELECT-BOX -- https://www.youtube.com/watch?v=I5vmeL0zYj4
 const selectEl = document.getElementById("select-box");
 const allEpisodes = getAllEpisodes();
+
+function pad2(number) {
+   return (number < 10 ? '0' : '') + number
+}
+
 allEpisodes.forEach(episode => {
   const optionEl1 = document.createElement("option");
   selectEl.appendChild(optionEl1);
-  optionEl1.textContent = ` - ${episode.name}`;
-  
+  optionEl1.textContent = `S${pad2(episode.season)}E${pad2(episode.number)} - ${episode.name}`;
 });
 
 /* -- GET ONE EPISODE --
