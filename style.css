@@ -1,5 +1,7 @@
 #root {
-  color: red;
+  position: absolute;
+  left: 41.5rem;
+  top: 2.5rem;
 }
 
 body {

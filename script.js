@@ -2,13 +2,13 @@ const allEpisodes = getAllEpisodes();
 
 //You can edit ALL of the code here
 function setup() {
-    const numberOfEpisodes = allEpisodes.length;
+  const numberOfEpisodes = allEpisodes.length;
   makePageForEpisodes(allEpisodes, numberOfEpisodes);
 }
 
 function makePageForEpisodes(episodeList, numberOfEpisodes) {
   const rootElem = document.getElementById("root");
-  rootElem.textContent = `Got ${episodeList.length} / ${numberOfEpisodes} episode(s)`;
+  rootElem.textContent = `Displaying ${episodeList.length} / ${numberOfEpisodes} episode(s)`;
   allEpisodesContainerEl.innerHTML = "";
 
   // -- GET ALL EPISODES -- access array using forEach https://www.youtube.com/watch?v=kTYRFuJv-gA
@@ -82,28 +82,30 @@ function searchAndDisplay(searchValue, allEpisodes) {
 
 searchEl.addEventListener("keyup", function (e) {
   let searchValue = e.target.value.toLowerCase();
-
   searchAndDisplay(searchValue, allEpisodes);
 });
 
 // -- SELECT-BOX -- https://www.youtube.com/watch?v=I5vmeL0zYj4
 const selectEl = document.getElementById("select-box");
+const optionEl0 = document.createElement("option");
+selectEl.appendChild(optionEl0);
+optionEl0.textContent = "All episodes";
 
-// add function to reset all pge episodes 
+// add function to reset all pge episodes
 
-function pad2(number) {
+function addZero(number) {
   return (number < 10 ? "0" : "") + number;
 }
 
 allEpisodes.forEach((episode) => {
   const optionEl1 = document.createElement("option");
   optionEl1.value = JSON.stringify(episode);
-  optionEl1.textContent = `S${pad2(episode.season)}E${pad2(episode.number)} - ${episode.name }`;
+  optionEl1.textContent = `S${addZero(episode.season)}E${addZero(episode.number)} - ${episode.name}`;
   selectEl.appendChild(optionEl1);
 });
 
 selectEl.addEventListener("change", (e) => {
-  const episode =JSON.parse(e.target.value);
+  const episode = JSON.parse(e.target.value);
   makePageForEpisodes([episode], allEpisodes.length);
 });
 
