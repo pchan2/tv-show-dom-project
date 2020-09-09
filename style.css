@@ -31,6 +31,7 @@ body {
   display: flex;
   flex-wrap: wrap;  /* this fixed the BUG - episodes go off screen */
   width: 100vw;
+  justify-content: center;
 }
 
 .anchor-name {

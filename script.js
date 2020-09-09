@@ -3,12 +3,12 @@ const allEpisodes = getAllEpisodes();
 //You can edit ALL of the code here
 function setup() {
   const numberOfEpisodes = allEpisodes.length;
-  makePageForEpisodes(allEpisodes, numberOfEpisodes);
+  makePageForEpisodes(allEpisodes);
 }
 
-function makePageForEpisodes(episodeList, numberOfEpisodes) {
+function makePageForEpisodes(episodeList) {
   const rootElem = document.getElementById("root");
-  rootElem.textContent = `Displaying ${episodeList.length} / ${numberOfEpisodes} episode(s)`;
+  rootElem.textContent = `Displaying ${episodeList.length} / ${allEpisodes.length} episode(s)`;
   allEpisodesContainerEl.innerHTML = "";
 
   // -- GET ALL EPISODES -- access array using forEach https://www.youtube.com/watch?v=kTYRFuJv-gA
@@ -72,12 +72,17 @@ function searchAndDisplay(searchValue, allEpisodes) {
   let episodes = [];
   const numberOfEpisodes = allEpisodes.length;
 
+  if (searchValue === null) {
+    episodes = allEpisodes;
+  } else {
+
   episodes = allEpisodes.filter(
     (episode) =>
       episode.name.toLowerCase().includes(searchValue) ||
       episode.summary.toLowerCase().includes(searchValue)
-  );
-  makePageForEpisodes(episodes, numberOfEpisodes);
+    );
+  }
+  makePageForEpisodes(episodes);
 }
 
 searchEl.addEventListener("keyup", function (e) {
@@ -88,10 +93,9 @@ searchEl.addEventListener("keyup", function (e) {
 // -- SELECT-BOX -- https://www.youtube.com/watch?v=I5vmeL0zYj4
 const selectEl = document.getElementById("select-box");
 const optionEl0 = document.createElement("option");
+optionEl0.setAttribute("class", "optionEl0");
 selectEl.appendChild(optionEl0);
 optionEl0.textContent = "All episodes";
-
-// add function to reset all pge episodes
 
 function addZero(number) {
   return (number < 10 ? "0" : "") + number;
@@ -105,8 +109,14 @@ allEpisodes.forEach((episode) => {
 });
 
 selectEl.addEventListener("change", (e) => {
-  const episode = JSON.parse(e.target.value);
-  makePageForEpisodes([episode], allEpisodes.length);
+  const episode = e.target.value;
+  const firstOption = document.querySelector(".optionEl0").value;
+
+  if(episode === firstOption) {
+    makePageForEpisodes(allEpisodes);
+  } else {
+    makePageForEpisodes([JSON.parse(episode)]);
+  };
 });
 
 /* -- GET ONE EPISODE --
