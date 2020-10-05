@@ -1,5 +1,5 @@
-const allEpisodes =  getAllEpisodes();
-
+// const allEpisodes =  getAllEpisodes();
+/*
 //You can edit ALL of the code here
 function setup() {
   const numberOfEpisodes = allEpisodes.length;
@@ -118,20 +118,64 @@ selectEl.addEventListener("change", (e) => {
     makePageForEpisodes([JSON.parse(episode)]);
   };
 });
+*/
+
+const allEpisodesContainerEl = document.createElement("div");
 
 fetch("https://api.tvmaze.com/shows/82/episodes")
   .then(function(response){
     return response.json();
   })
-  .then(function(episode){
-    console.log(episode);
+  .then(function(episodeList){
+
+    episodeList.forEach((episode) => {
+      // -- CREATE ELEMENTS --
+      const anchorEl = document.createElement("a");
+      const episodeContainerEl = document.createElement("div");
+      const nameEl = document.createElement("p");
+      const imageMediumEl = document.createElement("img");
+      const summaryEl = document.createElement("p");
+      const episodeCodeEl = document.createElement("p");
+  
+      // -- CREATE CLASSES --
+      anchorEl.className = "anchor-name";
+      episodeContainerEl.className = "episode-container";
+      nameEl.className = "episode-name";
+      episodeCodeEl.className = "episode-code";
+      allEpisodesContainerEl.className = "all-episodes-container";
+  
+      // -- GIVE ELEMENTS VALUE --
+      anchorEl.href = episode.url;
+      nameEl.textContent = episode.name;
+      imageMediumEl.src = episode.image.medium;
+      summaryEl.innerHTML = episode.summary;
+  
+      if (episode.number >= 10) {
+        episodeCodeEl.textContent = `S0${episode.season}E${episode.number}`;
+      } else {
+        episodeCodeEl.textContent = `S0${episode.season}E0${episode.number}`;
+      }
+  
+      // -- APPEND ELEMENTS --
+      allEpisodesContainerEl.appendChild(episodeContainerEl);
+      episodeContainerEl.appendChild(anchorEl);
+      anchorEl.appendChild(nameEl);
+      episodeContainerEl.appendChild(episodeCodeEl);
+      episodeContainerEl.appendChild(imageMediumEl);
+      episodeContainerEl.appendChild(summaryEl);
+    });
+    
     const url = episode.url;
     const name = episode.name;
     const episodeCode = `${episode.season} ${episode.number}`
     const image = episode.image.medium;
     const summary = episode.summary;
 
-    const episodeElement = makePageForEpisodes(allEpisodes);
+    const episodeElement = function makePageForEpisodes(episodeList) {
+      const rootElem = document.getElementById("root");
+      rootElem.textContent = `Displaying ${episodeList.length} / ${allEpisodes.length} episode(s)`;
+      allEpisodesContainerEl.innerHTML = "";
+    };
 
     document.body.appendChild(episodeElement);
   })
