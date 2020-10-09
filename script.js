@@ -1,3 +1,5 @@
+let globalEpisodes = [];
+
 //You can edit ALL of the code here
 function setup(allEpisodes) {
   const numberOfEpisodes = allEpisodes.length;
@@ -83,12 +85,12 @@ function searchAndDisplay(searchValue, allEpisodes) {
   makePageForEpisodes(episodes);
 }
 
-function setupSearchEvent(allEpisodes) {
+
   searchEl.addEventListener("keyup", function (e) {
     let searchValue = e.target.value.toLowerCase();
-    searchAndDisplay(searchValue, allEpisodes);
+    searchAndDisplay(searchValue, globalEpisodes);
+    console.log("eventfired");
   });
-}
 
 // -- SELECT-BOX -- https://www.youtube.com/watch?v=I5vmeL0zYj4
 const selectEl = document.getElementById("select-box");
@@ -110,19 +112,19 @@ function updateOptions(allEpisodes) {
   });
 }
 
-function setupSelectEvent(allEpisodes) {
+
   selectEl.addEventListener("change", (e) => {
     const episode = e.target.value;
     const firstOption = document.querySelector(".optionEl0").value;
 
 
     if (episode === firstOption) {
-      makePageForEpisodes(allEpisodes);
+      makePageForEpisodes(globalEpisodes);
     } else {
       makePageForEpisodes([JSON.parse(episode)]);
     };
   });
-}
+
 
 function fetchEpisodes() {
 
@@ -133,19 +135,11 @@ function fetchEpisodes() {
     .then(function (episodeList) {
       setup(episodeList);
       updateOptions(episodeList);
-      setupSelectEvent(episodeList);
-      setupSearchEvent(episodeList);
-      // const url = episode.url;
-      // const name = episode.name;
-      // const episodeCode = `${episode.season} ${episode.number}`
-      // const image = episode.image.medium;
-      // const summary = episode.summary;
-
-      // const episodeElement = makePageForEpisodes(episodeList);
-
-      // document.body.appendChild(episodeElement);
+      globalEpisodes = episodeList;
     })
     .catch(function (err) {
       console.log(err);
     })
 }
+
+window.fetchEpisodes = fetchEpisodes;
