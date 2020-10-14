@@ -6,6 +6,8 @@ function setup(allEpisodes) {
   makePageForEpisodes(allEpisodes);
 }
 
+
+
 function makePageForEpisodes(episodeList) {
   const rootElem = document.getElementById("root");
   // rootElem.textContent = `Displaying ${episodeList.length} / ${allEpisodes.length} episode(s)`;
@@ -50,7 +52,7 @@ function makePageForEpisodes(episodeList) {
   });
 }
 
-window.onload = fetchEpisodes;
+window.onload = fetchShows;
 
 const bodyEl = document.querySelector("body");
 const allEpisodesContainerEl = document.createElement("div");
@@ -89,7 +91,6 @@ function searchAndDisplay(searchValue, allEpisodes) {
   searchEl.addEventListener("keyup", function (e) {
     let searchValue = e.target.value.toLowerCase();
     searchAndDisplay(searchValue, globalEpisodes);
-    console.log("eventfired");
   });
 
 // -- SELECT-BOX -- https://www.youtube.com/watch?v=I5vmeL0zYj4
@@ -112,23 +113,54 @@ function updateOptions(allEpisodes) {
   });
 }
 
+selectEl.addEventListener("change", (e) => {
+  const episode = e.target.value;
+  const firstOption = document.querySelector(".optionEl0").value;
 
-  selectEl.addEventListener("change", (e) => {
-    const episode = e.target.value;
-    const firstOption = document.querySelector(".optionEl0").value;
 
+  if (episode === firstOption) {
+    makePageForEpisodes(globalEpisodes);
+  } else {
+    makePageForEpisodes([JSON.parse(episode)]);
+  };
+});
 
-    if (episode === firstOption) {
-      makePageForEpisodes(globalEpisodes);
-    } else {
-      makePageForEpisodes([JSON.parse(episode)]);
-    };
+// -- SELECT-SHOW
+const selectShowEl = document.getElementById("select-show");
+const optionShowEl = document.createElement("option");
+optionShowEl.setAttribute("class", "optionShowEl");
+selectShowEl.appendChild(optionShowEl);
+optionShowEl.textContent = "All shows";
+
+function updateShows(allShows) {
+  allShows.forEach((show) => {
+    const optionShowEl1 = document.createElement("option");
+    optionShowEl1.value = JSON.stringify(show);
+    optionShowEl1.textContent = show.name;
+    selectShowEl.appendChild(optionShowEl1);
+  });
+}
+
+selectShowEl.addEventListener("change", (e) => {
+  const show = JSON.parse(e.target.value);
+    // const firstShowOption = document.querySelector(".optionShowEl").value;
+console.log(show)
+    showId = show.id
+    fetchEpisodes();
   });
 
+// -- FETCH SHOWS
+let showId = null;
+
+function fetchShows() {
+  updateShows(getAllShows())
+}
 
 function fetchEpisodes() {
 
-  return fetch("https://api.tvmaze.com/shows/82/episodes")
+  const url = `https://api.tvmaze.com/shows/${showId}/episodes`
+  console.log(url)
+  return fetch(url)
     .then(function (response) {
       return response.json();
     })

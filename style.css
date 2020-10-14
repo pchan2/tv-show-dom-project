@@ -11,7 +11,7 @@ body {
   background: #eceeee;
 }
 
-#select-box {
+#select-box, #select-show {
   padding:.8rem;
   margin: 1rem;
   border: solid 2px grey;
