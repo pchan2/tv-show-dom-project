@@ -1,14 +1,16 @@
-const allEpisodes =  getAllEpisodes();
+let globalEpisodes = [];
 
 //You can edit ALL of the code here
-function setup() {
+function setup(allEpisodes) {
   const numberOfEpisodes = allEpisodes.length;
   makePageForEpisodes(allEpisodes);
 }
 
+
+
 function makePageForEpisodes(episodeList) {
   const rootElem = document.getElementById("root");
-  rootElem.textContent = `Displaying ${episodeList.length} / ${allEpisodes.length} episode(s)`;
+  // rootElem.textContent = `Displaying ${episodeList.length} / ${allEpisodes.length} episode(s)`;
   allEpisodesContainerEl.innerHTML = "";
 
   // -- GET ALL EPISODES -- access array using forEach https://www.youtube.com/watch?v=kTYRFuJv-gA
@@ -50,7 +52,7 @@ function makePageForEpisodes(episodeList) {
   });
 }
 
-window.onload = setup;
+window.onload = fetchShows;
 
 const bodyEl = document.querySelector("body");
 const allEpisodesContainerEl = document.createElement("div");
@@ -76,8 +78,8 @@ function searchAndDisplay(searchValue, allEpisodes) {
     episodes = allEpisodes;
   } else {
 
-  episodes = allEpisodes.filter(
-    (episode) =>
+    episodes = allEpisodes.filter(
+      (episode) =>
       episode.name.toLowerCase().includes(searchValue) ||
       episode.summary.toLowerCase().includes(searchValue)
     );
@@ -85,10 +87,11 @@ function searchAndDisplay(searchValue, allEpisodes) {
   makePageForEpisodes(episodes);
 }
 
-searchEl.addEventListener("keyup", function (e) {
-  let searchValue = e.target.value.toLowerCase();
-  searchAndDisplay(searchValue, allEpisodes);
-});
+
+  searchEl.addEventListener("keyup", function (e) {
+    let searchValue = e.target.value.toLowerCase();
+    searchAndDisplay(searchValue, globalEpisodes);
+  });
 
 // -- SELECT-BOX -- https://www.youtube.com/watch?v=I5vmeL0zYj4
 const selectEl = document.getElementById("select-box");
@@ -101,40 +104,74 @@ function addZero(number) {
   return (number < 10 ? "0" : "") + number;
 }
 
-allEpisodes.forEach((episode) => {
-  const optionEl1 = document.createElement("option");
-  optionEl1.value = JSON.stringify(episode);
-  optionEl1.textContent = `S${addZero(episode.season)}E${addZero(episode.number)} - ${episode.name}`;
-  selectEl.appendChild(optionEl1);
-});
+function updateOptions(allEpisodes) {
+  allEpisodes.forEach((episode) => {
+    const optionEl1 = document.createElement("option");
+    optionEl1.value = JSON.stringify(episode);
+    optionEl1.textContent = `S${addZero(episode.season)}E${addZero(episode.number)} - ${episode.name}`;
+    selectEl.appendChild(optionEl1);
+  });
+}
 
 selectEl.addEventListener("change", (e) => {
   const episode = e.target.value;
   const firstOption = document.querySelector(".optionEl0").value;
 
-  if(episode === firstOption) {
-    makePageForEpisodes(allEpisodes);
+
+  if (episode === firstOption) {
+    makePageForEpisodes(globalEpisodes);
   } else {
     makePageForEpisodes([JSON.parse(episode)]);
   };
 });
 
-fetch("https://api.tvmaze.com/shows/82/episodes")
-  .then(function(response){
-    return response.json();
-  })
-  .then(function(episode){
-    console.log(episode);
-    const url = episode.url;
-    const name = episode.name;
-    const episodeCode = `${episode.season} ${episode.number}`
-    const image = episode.image.medium;
-    const summary = episode.summary;
+// -- SELECT-SHOW
+const selectShowEl = document.getElementById("select-show");
+const optionShowEl = document.createElement("option");
+optionShowEl.setAttribute("class", "optionShowEl");
+selectShowEl.appendChild(optionShowEl);
+optionShowEl.textContent = "All shows";
 
-    const episodeElement = makePageForEpisodes(allEpisodes);
+function updateShows(allShows) {
+  allShows.forEach((show) => {
+    const optionShowEl1 = document.createElement("option");
+    optionShowEl1.value = JSON.stringify(show);
+    optionShowEl1.textContent = show.name;
+    selectShowEl.appendChild(optionShowEl1);
+  });
+}
 
-    document.body.appendChild(episodeElement);
-  })
-  .catch(function(err){
-    console.log(err);
-  })
+selectShowEl.addEventListener("change", (e) => {
+  const show = JSON.parse(e.target.value);
+    // const firstShowOption = document.querySelector(".optionShowEl").value;
+console.log(show)
+    showId = show.id
+    fetchEpisodes();
+  });
+
+// -- FETCH SHOWS
+let showId = null;
+
+function fetchShows() {
+  updateShows(getAllShows())
+}
+
+function fetchEpisodes() {
+
+  const url = `https://api.tvmaze.com/shows/${showId}/episodes`
+  console.log(url)
+  return fetch(url)
+    .then(function (response) {
+      return response.json();
+    })
+    .then(function (episodeList) {
+      setup(episodeList);
+      updateOptions(episodeList);
+      globalEpisodes = episodeList;
+    })
+    .catch(function (err) {
+      console.log(err);
+    })
+}
+
+window.fetchEpisodes = fetchEpisodes;
