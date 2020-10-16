@@ -6,6 +6,72 @@ function setup(allEpisodes) {
   makePageForEpisodes(allEpisodes);
 }
 
+// -- Make Page for Shows Function --
+function makePageForShows(showList) {
+
+  // -- GET ALL SHOWS --
+  showList.forEach((show) => {
+    const showContainer = document.createElement("section");
+    const titleEl = document.createElement("article");
+    const showContentEl = document.createElement("article");
+    const mainCardEl = document.createElement("article");
+    const sideCardEl = document.createElement("article");
+
+    const nameEl = document.createElement("p");
+    
+    const coverPhotoEl = document.createElement("img");
+    const summaryEl = document.createElement("p"); 
+  
+    const ratingEl = document.createElement("p");
+    const genresEl = document.createElement("p");
+    const statusEl = document.createElement("p");
+    const runtimeEl = document.createElement("p");
+
+    // -- CREATE CLASSES --
+    showContainer.className = "showContainer";
+    showContentEl.className = "showContentEl";
+    mainCardEl.className = "mainCardEl";
+    coverPhotoEl.className = "coverPhotoEl";
+    titleEl.className = "titleEl";
+    summaryEl.className = "summaryEl";
+    sideCardEl.className = "sideCardEl";
+
+
+    // -- GIVE ELEMENTS VALUE --
+    nameEl.textContent = show.name;
+    coverPhotoEl.src = show.image.medium;
+    summaryEl.innerHTML = show.summary;
+    ratingEl.textContent = `Rated: ${show.rating.average}`;
+    genresEl.textContent = `Genres: ${show.genres}`;
+    statusEl.textContent = `Status: ${show.status}`;
+    runtimeEl.textContent = `Runtime: ${show.runtime}`;
+
+    // -- APPEND ELEMENTS --
+    bodyEl.appendChild(showContainer);
+
+    showContainer.append(titleEl);
+    showContainer.append(showContentEl);
+    showContentEl.append(mainCardEl);
+    showContentEl.append(sideCardEl);
+
+    titleEl.append(nameEl);
+
+    mainCardEl.append(coverPhotoEl);
+    mainCardEl.append(summaryEl);
+
+    sideCardEl.append(ratingEl);
+
+    sideCardEl.append(genresEl);
+    sideCardEl.append(statusEl);
+    sideCardEl.append(runtimeEl);
+
+    // if(coverPhotoEl.src = null) {
+    //   return null
+    // } else {
+
+    // }
+  })
+} 
 
 
 function makePageForEpisodes(episodeList) {
@@ -139,6 +205,8 @@ function updateShows(allShows) {
     optionShowEl1.textContent = show.name;
     selectShowEl.appendChild(optionShowEl1);
   });
+
+  makePageForShows(allShows);
 }
 
 selectShowEl.addEventListener("change", (e) => {
