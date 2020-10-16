@@ -36,7 +36,6 @@ function makePageForShows(showList) {
     summaryEl.className = "summaryEl";
     sideCardEl.className = "sideCardEl";
 
-
     // -- GIVE ELEMENTS VALUE --
     nameEl.textContent = show.name;
     coverPhotoEl.src = show.image.medium;
@@ -54,8 +53,6 @@ function makePageForShows(showList) {
     showContentEl.append(mainCardEl);
     showContentEl.append(sideCardEl);
 
-    titleEl.append(nameEl);
-
     mainCardEl.append(coverPhotoEl);
     mainCardEl.append(summaryEl);
 
@@ -64,12 +61,6 @@ function makePageForShows(showList) {
     sideCardEl.append(genresEl);
     sideCardEl.append(statusEl);
     sideCardEl.append(runtimeEl);
-
-    // if(coverPhotoEl.src = null) {
-    //   return null
-    // } else {
-
-    // }
   })
 } 
 
@@ -210,11 +201,19 @@ function updateShows(allShows) {
 }
 
 selectShowEl.addEventListener("change", (e) => {
-  const show = JSON.parse(e.target.value);
-    // const firstShowOption = document.querySelector(".optionShowEl").value;
-console.log(show)
+  console.log(e.target.value);
+  const show = e.target.value === "All shows" ? e.target.value : JSON.parse(e.target.value);
+  const firstOption = document.querySelector(".optionShowEl").value;
+  console.log(firstOption);
+
     showId = show.id
-    fetchEpisodes();
+    // fetchEpisodes();
+console.log(show, firstOption)
+    if (show === firstOption) {
+      makePageForShows(getAllShows());
+    } else {
+      fetchEpisodes();
+    };
   });
 
 // -- FETCH SHOWS
