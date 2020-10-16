@@ -27,12 +27,61 @@ body {
   width: 17rem;
 }
 
+/* ****************** Shows ****************** */
+
+.showContainer {
+  border: 2px solid rgba(56, 56, 56, 0.452);
+  border-radius: 25px;
+  padding: 1rem;
+}
+
+.showContentEl,
+.mainCardEl {
+  display: flex;
+}
+
+.showContentEl {
+  background: rgb(187, 185, 185);
+  border-radius: 25px;
+  padding: 1rem;
+}
+
+.titleEl {
+  font-weight: 900;
+  font-size: 1rem;
+  margin-left: 7rem;
+}
+
+.mainCardEl {
+  justify-content: center;
+}
+
+.sideCardEl {
+  margin-right: 10rem;
+  background: rgb(187, 185, 185);
+  filter: brightness(80%);
+  border-radius: 25px;
+  padding: 1rem;
+}
+
 .all-episodes-container {
   display: flex;
   flex-wrap: wrap;  /* this fixed the BUG - episodes go off screen */
   width: 100vw;
   justify-content: center;
 }
+
+.coverPhotoEl {
+  width: 10%;
+  margin: 1rem;
+}
+
+.summaryEl {
+  width: 50%;
+  margin: 1rem;
+}
+
+/* ****************** Episodes ****************** */
 
 .anchor-name {
   text-decoration: none;
